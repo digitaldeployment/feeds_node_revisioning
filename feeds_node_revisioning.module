@@ -1,0 +1,23 @@
+<?php
+// Developed by Dennis Stevense for Digital Deployment
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function feeds_node_revisioning_nodeapi(&$node, $op) {
+  if ($op == 'presave') {
+    feeds_node_revisioning_node_presave($node);
+  }
+}
+
+function feeds_node_revisioning_node_presave(&$node) {
+  // Is this node being updated by the feeds node processor and is revisioning enabled?
+  if (strpos($node->log, 'FeedsNodeProcessor') !== FALSE && $node->revision) {
+    // Publish the node right away and disable revisioning
+    $node->status = TRUE;
+    $node->revision = FALSE;
+    
+    // Also disable the revisioning module setting
+    $node->revision_moderation = FALSE;
+  }
+}

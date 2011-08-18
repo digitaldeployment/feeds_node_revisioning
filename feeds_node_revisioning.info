@@ -1,0 +1,6 @@
+; Developed by Dennis Stevense for Digital Deployment
+name = Feeds Node Revisioning
+description = Makes the node processor work with revisioning.
+package = Feeds
+core = 6.x
+dependencies[] = feeds
